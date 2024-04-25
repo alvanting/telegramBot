@@ -241,7 +241,6 @@ public class GLOPayBot extends TelegramLongPollingBot {
 
         PayinPostResponse response = new PayinPostResponse();
 
-        // 构建带参数的 URL
         StringBuilder urlBuilder = new StringBuilder(apiUrl);
         urlBuilder.append("?version=").append(URLEncoder.encode(request.getVersion(), "UTF-8"));
         urlBuilder.append("&agentId=").append(URLEncoder.encode(request.getAgentId(), "UTF-8"));
@@ -252,7 +251,6 @@ public class GLOPayBot extends TelegramLongPollingBot {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
 
-        // 发送请求主体
         connection.setDoOutput(true);
 
         int statusCode = connection.getResponseCode();
@@ -269,9 +267,8 @@ public class GLOPayBot extends TelegramLongPollingBot {
             ObjectMapper objectMapper = new ObjectMapper();
             responseBody = responseBody.trim();
             if (responseBody.startsWith("0")) {
-                // 处理订单号以零开头的情况
-                response.setAgentOrderId(responseBody);  // 将订单号作为字符串存储到响应对象中
-                response.setPayMessage("请核实订单号");  // 提示用户核实订单号
+                response.setAgentOrderId(responseBody); 
+                response.setPayMessage("请核实订单号");  
             } else {
                 response = objectMapper.readValue(responseBody, PayinPostResponse.class);
             }
@@ -295,7 +292,6 @@ public class GLOPayBot extends TelegramLongPollingBot {
 
         PayoutPostResponse response = new PayoutPostResponse();
 
-        // 构建带参数的 URL
         StringBuilder urlBuilder = new StringBuilder(apiUrl);
         urlBuilder.append("?version=").append(URLEncoder.encode(request.getVersion(), "UTF-8"));
         urlBuilder.append("&agentId=").append(URLEncoder.encode(request.getAgentId(), "UTF-8"));
@@ -306,7 +302,6 @@ public class GLOPayBot extends TelegramLongPollingBot {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
 
-        // 发送请求主体
         connection.setDoOutput(true);
 
         int statusCode = connection.getResponseCode();
@@ -320,7 +315,6 @@ public class GLOPayBot extends TelegramLongPollingBot {
             reader.close();
             String responseBody = sb.toString();
 
-            // 解析响应体为 BalancePostResponse 对象
             ObjectMapper objectMapper = new ObjectMapper();
             response = objectMapper.readValue(responseBody, PayoutPostResponse.class);
         } else {
@@ -347,7 +341,6 @@ public class GLOPayBot extends TelegramLongPollingBot {
 
         BalancePostResponse response = new BalancePostResponse();
 
-        // 构建带参数的 URL
         StringBuilder urlBuilder = new StringBuilder(apiUrl);
         urlBuilder.append("?version=").append(URLEncoder.encode(request.getVersion(), "UTF-8"));
         urlBuilder.append("&agentId=").append(URLEncoder.encode(request.getAgentId(), "UTF-8"));
@@ -358,7 +351,6 @@ public class GLOPayBot extends TelegramLongPollingBot {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
 
-        // 发送请求主体
         connection.setDoOutput(true);
 
         int statusCode = connection.getResponseCode();
@@ -372,7 +364,6 @@ public class GLOPayBot extends TelegramLongPollingBot {
             reader.close();
             String responseBody = sb.toString();
 
-            // 解析响应体为 BalancePostResponse 对象
             ObjectMapper objectMapper = new ObjectMapper();
             response = objectMapper.readValue(responseBody, BalancePostResponse.class);
         } else {
@@ -391,6 +382,7 @@ public class GLOPayBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "6513993761:AAETF3n0r4oMx11zQcGnPgefkKQhweWQHIc";
+        // TG bot key
+        return "";
     }
 }
